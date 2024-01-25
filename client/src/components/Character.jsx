@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react';
-import { Link,useHistory } from 'react-router-dom';
-import {postCharacter,getTemperaments} from '../action/index';
+import { Link } from 'react-router-dom';
+import {postCharacter,getTemperaments} from '../redux/actions/index';
 import { useDispatch,useSelector } from 'react-redux';
-import { Character } from '../action/index.js';
 
 export default function Character(){
     const dispatch=useDispatch()

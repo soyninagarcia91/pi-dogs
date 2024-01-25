@@ -1,5 +1,14 @@
 import axios from 'axios';  // Corregir la ruta del import para axios
-import { GET_NAME_CHARACTERS, Filter_By_value, GET_TEMPERAMENTS, Filter_created } from './index';
+
+export const GET_NAME_CHARACTERS = "GET_NAME_CHARACTERS"
+export const GET_CHARACTER = "GET_CHARACTER"
+export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS"
+export const POST_CHARACTER = "POST_CHARACTER"
+export const FILTER_BY_VALUE = "FILTER_BY_VALUE"
+export const FILTER_CREATED = "FILTER_CREATED"
+export const FILTER_BY_STATUS = "FILTER_BY_STATUS"
+
+export const getNameCharacter = (id) => async (dispatch) => {}
 
 export const getCharacter = (name) => async (dispatch) => {
   try {
@@ -14,7 +23,7 @@ export const getCharacter = (name) => async (dispatch) => {
 };
 
 export const filterCharactersByStatus = (payload) => ({
-  type: Filter_By_value,
+  type: FILTER_BY_VALUE,
   payload,
 });
 
@@ -34,6 +43,10 @@ export const postCharacter = (payload) => async (dispatch) => {
   try {
     const response = await axios.post("http://localhost:3001/character", payload);
     console.log(response);
+    dispatch({
+      type: POST_CHARACTER,
+      payload: response.data,
+    });
     return response;
   } catch (error) {
     console.error(error);
@@ -41,7 +54,7 @@ export const postCharacter = (payload) => async (dispatch) => {
 };
 
 export const filterCreated = (payload) => ({
-  type: Filter_created,
+  type: FILTER_CREATED,
   payload,
 });
 
