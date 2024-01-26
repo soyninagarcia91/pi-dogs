@@ -1,11 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import {getNameCharacter} from'../redux/actions';
+import {getNameCharacter} from'../redux/actions';
 
-export default function SearchBar(){
-    const dispatch=useDispatch()
-    const [name,setName]=useState("")
+
+export default function SearchBar(props){
+return(
+    <div>
+        <input type='search'/>
+        <button onClick={()=>props.onSearch}>Agregar</button>
+    </div>
+)
+// export default function SearchBar(){
+//     const dispatch=useDispatch()
+//     const [name,setName]=useState("")
 
     
     function handleInputChange(e){
