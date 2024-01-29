@@ -9,7 +9,7 @@ import SearchBar from './SearchBar';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const allCharacters = useSelector((state) => state.character); // Cambié 'dog' a 'character'
+  const allCharacters = useSelector((state) => state.characters); // Cambié 'dog' a 'character'
   const [currentPage, setCurrentPage] = useState(1);
   const [charactersPerPage, setCharactersPerPage] = useState(8);
   const indexOfLastCharacter = currentPage * charactersPerPage;
