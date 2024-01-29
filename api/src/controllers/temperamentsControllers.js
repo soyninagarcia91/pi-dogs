@@ -1,15 +1,11 @@
-const express = require('express');
-const temperaments = express.Router();
-const { Temperament/* , Dog */ } = require('../db');
-require('dotenv').config();
 const axios = require('axios')
+require('dotenv').config();
 const { API_KEY } = process.env;
 const URL = `https://api.thedogapi.com/v1/breeds?${API_KEY}`;
-const { getAllDogs /* , getApiInfoDog, getDBInfoDog */ } = require('../controllers/dogControllers');
+const { Temperament } = require('../db');
+const { getAllDogs  } = require('./dogsControllers');
 
-temperaments.use(express.json());
-
-temperaments.get('/temperament',/* http://localhost:3001/temperament */ async (req, res) => {
+const getTemperaments = async (req, res) => {
     const allData = await axios.get(URL);
     try {
         let everyTemperament = allData.data.map(dog => dog.temperament ? dog.temperament : "No info").map(dog => dog?.split(', '));
@@ -27,9 +23,9 @@ temperaments.get('/temperament',/* http://localhost:3001/temperament */ async (r
     } catch (error) {
         res.status(404).send(error)
     }
-});
+};
 
-temperaments.get('/dog/',/* http://localhost:3001/dog/?temperament=active */ async (req, res) => {
+const getDogsByTemperament = async (req, res) => {
     const temperament = req.query.temperament;
     const everyDog = await getAllDogs();
     const dogSearchResult = everyDog.filter((dog) => {
@@ -39,9 +35,9 @@ temperaments.get('/dog/',/* http://localhost:3001/dog/?temperament=active */ asy
         }
     });
     res.status(200).json(dogSearchResult)
-});
+};
 
-temperaments.post('/temperament/:temperament', async (req, res) => {
+const createTemperament = async (req, res) => {
     try{
     const newTemperament = req.params.temperament;
     const postedTemp = await Temperament.create({
@@ -51,6 +47,6 @@ temperaments.post('/temperament/:temperament', async (req, res) => {
     } catch (error) {
         res.status(404).send(error)
     }
-});
+};
 
-module.exports = temperaments;
+module.exports = { getTemperaments, getDogsByTemperament, createTemperament }
