@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { postCharacter, getTemperaments } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-export function CharacterCreate() {
+export default function CharacterCreate() {
     const dispatch = useDispatch();
     const temperaments = useSelector((state) => state.temperaments);
 
@@ -73,6 +73,18 @@ export function CharacterCreate() {
                         onChange={handleInputChange}
                     />
                 </div>
+                <select
+    value={input.temperamento}
+    name="temperamento"
+    onChange={handleInputChange} // Asegúrate de tener una función llamada handleInputChange que maneje los cambios en el input
+>
+    {temperaments.map((temp) => (
+        <option key={temp.name} value={temp.name}>
+            {temp.name}
+        </option>
+    ))}
+</select>
+
             </form>
         </div>
     );
